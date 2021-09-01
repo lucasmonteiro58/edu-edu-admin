@@ -4,24 +4,34 @@
       <NavBar class="navbar"></NavBar>
     </div>
     <div class="right-content">
-      <TopSearch class="top-search" @input="changeInput"></TopSearch>
-      <div
-        v-for="student in filteredStudents"
-        :key="student.id"
-        class="section-years"
-        v-show="student.students.length > 0"
-      >
-        <div class="title">{{ student.label }}</div>
-        <div class="cards-section">
-          <CardsStudents
-            v-for="s in student.students"
-            :key="s.name"
-            :image="s.img"
-            :name="s.name"
-            :year="s.label"
-          ></CardsStudents>
+      <span v-if="isVisibleList">
+        <TopSearch
+          class="top-search"
+          @input="changeInput"
+          @add="openStudentsRegister"
+        ></TopSearch>
+        <div
+          v-for="student in filteredStudents"
+          :key="student.id"
+          class="section-years"
+          v-show="student.students.length > 0"
+        >
+          <div class="title">{{ student.label }}</div>
+          <div class="cards-section">
+            <CardsStudents
+              v-for="s in student.students"
+              :key="s.name"
+              :image="s.img"
+              :name="s.name"
+              :year="s.label"
+            ></CardsStudents>
+          </div>
         </div>
-      </div>
+      </span>
+      <StudentsRegister
+        v-else
+        @close="closeStudentsRegister"
+      ></StudentsRegister>
     </div>
   </section>
 </template>
@@ -30,13 +40,15 @@
 import NavBar from "../components/NavBar.vue";
 import TopSearch from "../components/TopSearch.vue";
 import CardsStudents from "../components/CardsStudents.vue";
+import StudentsRegister from "../components/StudentsRegister.vue";
 
 export default {
   name: "StudentsProfile",
-  components: { NavBar, TopSearch, CardsStudents },
+  components: { NavBar, TopSearch, CardsStudents, StudentsRegister },
   data() {
     return {
       inputSearch: "",
+      isVisibleList: true,
     };
   },
   computed: {
@@ -52,6 +64,12 @@ export default {
   methods: {
     changeInput(value) {
       this.inputSearch = value;
+    },
+    closeStudentsRegister() {
+      this.isVisibleList = true;
+    },
+    openStudentsRegister() {
+      this.isVisibleList = false;
     },
   },
 };

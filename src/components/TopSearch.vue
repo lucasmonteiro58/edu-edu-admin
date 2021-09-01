@@ -30,7 +30,7 @@
         </div>
       </div>
     </div>
-    <button class="btn btn--primary">
+    <button class="btn btn--primary" @click="add">
       <img src="@/assets/icons/icon_plus.png" alt="icon" />
       Adicionar novo aluno
     </button>
@@ -58,6 +58,9 @@ export default {
     selectAno() {
       this.selected = "ano";
       this.$emit("year", this.selected);
+    },
+    add() {
+      this.$emit("add");
     },
   },
 };

@@ -63,6 +63,24 @@ export default new Vuex.Store({
     logout(state) {
       state.logged = false;
     },
+    addStudent(state, newStudent) {
+      switch (newStudent.label) {
+        case "Pré":
+          state.students[0].students.push(newStudent);
+          break;
+        case "1º ano":
+          state.students[1].students.push(newStudent);
+          break;
+        case "2º ano":
+          state.students[2].students.push(newStudent);
+          break;
+        case "3º ano":
+          state.students[3].students.push(newStudent);
+          break;
+        default:
+          break;
+      }
+    },
   },
   actions: {},
   modules: {},

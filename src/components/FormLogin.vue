@@ -2,14 +2,6 @@
   <div class="login-section">
     <div class="top-images">
       <img src="@/assets/logo.png" alt="logo" class="logo" />
-      <VueLottiePlayer
-        name="workoutMonkeyAnim"
-        loop
-        :animationData="require('@/assets/lottie.json')"
-        width="60px"
-        height="60px"
-        class="animation"
-      />
     </div>
 
     <div class="form-group">
@@ -28,9 +20,8 @@
 </template>
 
 <script>
-import VueLottiePlayer from "vue-lottie-player";
 export default {
-  components: { VueLottiePlayer },
+  components: {},
   methods: {
     login() {
       this.$emit("login");

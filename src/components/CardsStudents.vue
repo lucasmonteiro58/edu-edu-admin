@@ -28,7 +28,7 @@ export default {
 <style lang="scss" scoped>
 .card-student {
   width: 276px;
-  height: 321px;
+  min-height: 321px;
   background: #ffffff;
   border: 1px solid #e1e1e1;
   box-shadow: 0px 4px 0px #e3e3e3;

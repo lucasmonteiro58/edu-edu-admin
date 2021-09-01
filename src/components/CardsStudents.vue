@@ -51,6 +51,7 @@ export default {
     font-weight: 800;
     margin-top: 15px;
     margin-bottom: 10px;
+    text-transform: capitalize;
   }
 
   .year {

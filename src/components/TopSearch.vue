@@ -41,7 +41,7 @@
 export default {
   data() {
     return {
-      selected: "ano",
+      selected: "nome",
       input: "",
     };
   },

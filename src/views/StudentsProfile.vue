@@ -6,27 +6,15 @@
     <div class="right-content">
       <span v-if="isVisibleList">
         <TopSearch
+          ref="topSearch"
           class="top-search"
           @input="changeInput"
           @add="openStudentsRegister"
         ></TopSearch>
-        <div
-          v-for="student in filteredStudents"
-          :key="student.id"
-          class="section-years"
-          v-show="student.students.length > 0"
-        >
-          <div class="title">{{ student.label }}</div>
-          <div class="cards-section">
-            <CardsStudents
-              v-for="s in student.students"
-              :key="s.name"
-              :image="s.img"
-              :name="s.name"
-              :year="s.label"
-            ></CardsStudents>
-          </div>
-        </div>
+        <SectionYears :students="studentsPre"></SectionYears>
+        <SectionYears :students="students1ano"></SectionYears>
+        <SectionYears :students="students2ano"></SectionYears>
+        <SectionYears :students="students3ano"></SectionYears>
       </span>
       <StudentsRegister
         v-else
@@ -39,12 +27,13 @@
 <script>
 import NavBar from "../components/NavBar.vue";
 import TopSearch from "../components/TopSearch.vue";
-import CardsStudents from "../components/CardsStudents.vue";
+import SectionYears from "../components/SectionYears.vue";
 import StudentsRegister from "../components/StudentsRegister.vue";
+import { filter } from "lodash";
 
 export default {
   name: "StudentsProfile",
-  components: { NavBar, TopSearch, CardsStudents, StudentsRegister },
+  components: { NavBar, TopSearch, StudentsRegister, SectionYears },
   data() {
     return {
       inputSearch: "",
@@ -57,8 +46,20 @@ export default {
     },
     filteredStudents() {
       if (this.inputSearch.length >= 3) {
-        return null;
+        return filter(this.students, this.isMatchGroup.bind(this));
       } else return this.students;
+    },
+    studentsPre() {
+      return filter(this.filteredStudents, { label: "Pré" });
+    },
+    students1ano() {
+      return filter(this.filteredStudents, { label: "1º ano" });
+    },
+    students2ano() {
+      return filter(this.filteredStudents, { label: "2º ano" });
+    },
+    students3ano() {
+      return filter(this.filteredStudents, { label: "3º ano" });
     },
   },
   methods: {
@@ -70,6 +71,19 @@ export default {
     },
     openStudentsRegister() {
       this.isVisibleList = false;
+    },
+    isMatchGroup(student) {
+      if (this.$refs.topSearch.selected === "ano") {
+        return (
+          student.label &&
+          student.label.toUpperCase().includes(this.inputSearch.toUpperCase())
+        );
+      } else {
+        return (
+          student.name &&
+          student.name.toUpperCase().includes(this.inputSearch.toUpperCase())
+        );
+      }
     },
   },
 };
@@ -93,27 +107,7 @@ export default {
     width: 80%;
     background-color: #f7f7f7;
     padding-bottom: 60px;
-
-    .section-years {
-      padding: 30px 50px;
-
-      .title {
-        font-size: 1.375rem;
-        font-weight: bold;
-        color: #616161;
-        border-bottom: 1px solid #d8d8d8;
-        padding: 7px 0;
-      }
-
-      .cards-section {
-        margin-top: 25px;
-
-        display: flex;
-        flex-wrap: wrap;
-        row-gap: 40px;
-        column-gap: 40px;
-      }
-    }
+    min-height: 100vh;
   }
 }
 </style>

@@ -3,7 +3,7 @@
     <div class="left-content">
       <NavBar class="navbar"></NavBar>
     </div>
-    <div class="right-content">
+    <div class="right-content" v-if="!isOpenMenu">
       <span v-if="isVisibleList">
         <TopSearch
           ref="topSearch"
@@ -30,6 +30,7 @@ import TopSearch from "../components/TopSearch.vue";
 import SectionYears from "../components/SectionYears.vue";
 import StudentsRegister from "../components/StudentsRegister.vue";
 import { filter } from "lodash";
+import { MobileOrientation } from "mobile-orientation";
 
 export default {
   name: "StudentsProfile",
@@ -38,7 +39,13 @@ export default {
     return {
       inputSearch: "",
       isVisibleList: true,
+      orientation: new MobileOrientation(),
     };
+  },
+  mounted() {
+    this.orientation.on("resize", () => {
+      this.$store.commit("closeMenu");
+    });
   },
   computed: {
     students() {
@@ -60,6 +67,9 @@ export default {
     },
     students3ano() {
       return filter(this.filteredStudents, { label: "3º ano" });
+    },
+    isOpenMenu() {
+      return this.$store.state.menu;
     },
   },
   methods: {
@@ -108,6 +118,19 @@ export default {
     background-color: #f7f7f7;
     padding-bottom: 60px;
     min-height: 100vh;
+  }
+}
+
+@media (max-width: 600px) {
+  .students-profile {
+    .right-content {
+      width: 100%;
+    }
+
+    .left-content {
+      width: 0px;
+      min-width: 0px;
+    }
   }
 }
 </style>

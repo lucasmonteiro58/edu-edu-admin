@@ -1,6 +1,6 @@
 <template>
   <div class="students-register">
-    <div class="container-box">
+    <div class="container-box" v-show="!isOpenMenu">
       <div class="change-img">
         <img :src="listAvatar[indexAvatar]" alt="avatar" />
         <button class="btn btn--seconday" @click="changeAvatar">
@@ -96,12 +96,15 @@ export default {
       sliderData: ["Pré", "1", "2", "3"],
       checkbox: false,
       listAvatar,
-      indexAvatar: 0,
+      indexAvatar: Math.floor(Math.random() * 3),
     };
   },
   computed: {
     disabledButton() {
       return this.name && this.school && this.value && this.checkbox;
+    },
+    isOpenMenu() {
+      return this.$store.state.menu;
     },
   },
   methods: {
@@ -212,6 +215,39 @@ export default {
       input {
         padding: 0 20px 0 45px;
         width: 100%;
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .students-register {
+    .container-box {
+      width: 90%;
+      margin-top: 80px;
+      .change-img img {
+        width: 100px;
+      }
+      .change-img .btn {
+        width: 150px;
+        height: 35px;
+      }
+      .form-group img {
+        display: none;
+      }
+
+      .form-group input {
+        padding: 0 5px;
+      }
+
+      .slider-year {
+        .image {
+          display: none;
+        }
+
+        .info {
+          padding-right: 0;
+        }
       }
     }
   }

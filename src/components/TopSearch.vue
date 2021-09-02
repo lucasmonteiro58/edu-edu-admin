@@ -1,5 +1,5 @@
 <template>
-  <div class="top-container">
+  <div class="top-container" v-show="!isOpenMenu">
     <div class="input-g">
       <input
         type="text"
@@ -50,6 +50,11 @@ export default {
       this.$emit("input", newValue);
     },
   },
+  computed: {
+    isOpenMenu() {
+      return this.$store.state.menu;
+    },
+  },
   methods: {
     selectNome() {
       this.selected = "nome";
@@ -79,6 +84,7 @@ export default {
   justify-content: space-evenly;
   align-items: center;
   padding: 20px 10px;
+  row-gap: 5px;
 
   .input-g {
     width: 27%;
@@ -160,6 +166,54 @@ export default {
       padding-top: 5px;
       width: 20px;
       margin-right: 8px;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .top-container {
+    margin: 20px 20px;
+    margin-top: 70px;
+    height: inherit;
+    min-height: 126px;
+
+    .input-g {
+      width: 95%;
+      min-width: inherit;
+    }
+
+    .filter-section {
+      width: 95%;
+      margin-top: 15px;
+    }
+
+    .btn {
+      margin-top: 20px;
+      width: 95%;
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .top-container {
+    margin: 20px 20px;
+    margin-top: 70px;
+    height: inherit;
+    min-height: 126px;
+
+    .input-g {
+      width: 95%;
+      min-width: inherit;
+    }
+
+    .filter-section {
+      width: 95%;
+      margin-top: 15px;
+    }
+
+    .btn {
+      margin-top: 20px;
+      width: 95%;
     }
   }
 }

@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    menu: false,
     logged: false,
     students: [
       {
@@ -44,6 +45,12 @@ export default new Vuex.Store({
     },
     addStudent(state, newStudent) {
       state.students.push(newStudent);
+    },
+    openMenu(state) {
+      state.menu = true;
+    },
+    closeMenu(state) {
+      state.menu = false;
     },
   },
   actions: {},

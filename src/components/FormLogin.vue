@@ -65,4 +65,18 @@ export default {
     margin-top: 20px;
   }
 }
+
+@media (max-width: 600px) {
+  .login-section {
+    min-width: 90%;
+
+    .form-group {
+      width: 90%;
+    }
+
+    .btn {
+      width: 90%;
+    }
+  }
+}
 </style>

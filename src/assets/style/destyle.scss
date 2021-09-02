@@ -269,6 +269,10 @@ input {
   overflow: visible;
 }
 
+input {
+  z-index: 1 !important;
+}
+
 /**
  * Remove the inheritance of text transform in Edge, Firefox, and IE.
  * 1. Remove the inheritance of text transform in Firefox.

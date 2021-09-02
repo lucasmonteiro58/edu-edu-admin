@@ -1,5 +1,8 @@
 # edu-edu-admin
 
+## Demo
+http://edu-edu-admin.netlify.app
+
 ## Project setup
 ```
 npm install
